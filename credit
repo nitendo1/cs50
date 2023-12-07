@@ -1,0 +1,81 @@
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    int num1;
+    int num2;
+    int count = 0;
+    int sum1 = 0;
+    int sum2 = 0;
+    int nummu, numadd;
+    int d1, d2;
+    int actual;
+
+    long card = get_long("Number: ");
+    long cc = card;
+    int i = 0;
+    while (cc > 0)
+    {
+        cc = cc / 10;
+        i++;
+    }
+    if (i != 13 && i != 15 && i != 16)
+    {
+        printf("INVALID\n");
+    }
+    long n = card;
+    if (i == 13 || i == 15 || i == 16)
+    {
+        while (card > 0)
+        {
+            // for last digit
+            num1 = card % 10;
+            card = card / 10;
+            // for last second digit
+            num2 = card % 10;
+            card = card / 10;
+            // adding last digits which are not underlined
+            sum1 = sum1 + num1;
+            // adding numbers which are underlined
+            nummu = num2 * 2;
+            d1 = nummu % 10;
+            d2 = nummu / 10;
+            sum2 = sum2 + d1 + d2;
+            actual = sum1 + sum2;
+            // count number
+            count++;
+        }
+        if (actual % 10 != 0)
+        {
+
+            printf("INVALID\n");
+        }
+
+        long start = n;
+        do
+        {
+            start = start / 10;
+        }
+        while (start > 100);
+        if (actual % 10 == 0)
+        {
+            if ((i == 15) && (start == 34 || start == 37))
+            {
+                printf("AMEX\n");
+            }
+            else if ((i == 16) && (start == 51 || start == 52 || start == 53 || start == 54 || start == 55))
+            {
+                printf("MASTERCARD\n");
+            }
+            else if ((i == 13 || i == 16) && (start / 10 == 4))
+            {
+                printf("VISA\n");
+            }
+            else
+            {
+                printf("INVALID\n");
+            }
+        }
+    }
+}
